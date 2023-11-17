@@ -1,0 +1,19 @@
+/* NavBar.css */
+
+nav {
+    background-color: #3498db;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 20px;
+  }
+  
+  nav a:hover {
+    background-color: #2980b9;
+  }
+  

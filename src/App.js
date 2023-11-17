@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import PhysioForm from './pages/PhysioForm/PhysioForm';
 import Exercise from './pages/Exercise/Exercise';
 import Faq from './pages/Faq/Faq';
+import './App.css'
 
 export default function App() {
   return (
