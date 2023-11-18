@@ -1,7 +1,16 @@
 /* NavBar.css */
+.NavBar {
+    background-color: rgb(42,38,79);
+    color: white;
+    padding: 15px
+}
+
+.NavBar h1 {
+    color: white;
+}
 
 nav {
-    background-color: #3498db;
+    background-color: rgb(42,38,79);;
     padding: 10px;
     text-align: center;
   }
@@ -14,6 +23,6 @@ nav {
   }
   
   nav a:hover {
-    background-color: #2980b9;
+    background-color: #1f1a41;
   }
   

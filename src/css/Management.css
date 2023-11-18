@@ -1,0 +1,46 @@
+/* Management.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: rgb(42, 38, 79); /* Blue color */
+    font-size: 50px;
+    margin: 15px 0; /* Adjusted margin */
+  }
+  
+  p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333; /* Dark text color */
+  }
+  
+  h4 {
+    color: rgb(42, 38, 79); /* Blue color */
+    font-size: 24px;
+    margin-top: 20px; /* Increased margin */
+  }
+  
+  /* Add some spacing between paragraphs for better readability */
+  h4 + p {
+    margin-top: 10px;
+  }
+  
+  /* Style for your page container */
+  .page-container {
+    background-color: #fff; /* White background */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    margin-top: 20px; /* Increased margin */
+  }
+  
