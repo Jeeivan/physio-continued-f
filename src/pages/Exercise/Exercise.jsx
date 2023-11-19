@@ -1,12 +1,54 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Modal, Button } from 'react-bootstrap'
+import LowBack from '../../components/ExerciseVideos/LowBack';
+import Ankle from '../../components/ExerciseVideos/Ankle';
+import Hip from '../../components/ExerciseVideos/Hip';
+import Knee from '../../components/ExerciseVideos/Knee';
+import Neck from '../../components/ExerciseVideos/Neck';
+import Shoulder from '../../components/ExerciseVideos/Shoulder';
+import '../../css/Exercise.css'
 
 export default function Exercise() {
         const [showModal, setShowModal] = useState(true);
+        const [selectedBodyPart, setSelectedBodyPart] = useState(null)
+
+        const handleBodyPartClick = (bodyPart) => {
+            setSelectedBodyPart(bodyPart)
+            setShowModal(false)
+        }
+
+        const bodyPartHeadings = {
+            lowBack: 'Low Back Exercises',
+            neck: 'Neck Exercises',
+            knee: 'Knee Exercises',
+            shoulder: 'Shoulder Exercises',
+            hip: 'Hip Exercises',
+            ankle: 'Ankle Exercises',
+          };
+
   return (
     <Container>
-        <h1>Exercises To Try</h1>
+        <h1>{bodyPartHeadings[selectedBodyPart] || 'Exercises'}</h1>
+        <div className="exercise-buttons">
+        <Button onClick={() => handleBodyPartClick('lowBack')}>Low Back</Button>
+        <Button onClick={() => handleBodyPartClick('neck')}>Neck</Button>
+        <Button onClick={() => handleBodyPartClick('knee')}>Knee</Button>
+        <Button onClick={() => handleBodyPartClick('shoulder')}>Shoulder</Button>
+        <Button onClick={() => handleBodyPartClick('hip')}>Hip</Button>
+        <Button onClick={() => handleBodyPartClick('ankle')}>Ankle</Button>
+        </div>
+        {selectedBodyPart && (
+        <>
+          {selectedBodyPart === 'lowBack' && <LowBack />}
+          {selectedBodyPart === 'neck' && <Neck />}
+          {selectedBodyPart === 'knee' && <Knee />}
+          {selectedBodyPart === 'shoulder' && <Shoulder />}
+          {selectedBodyPart === 'hip' && <Hip />}
+          {selectedBodyPart === 'ankle' && <Ankle />}
+        </>
+      )}
+
         <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Welcome to the Exercise Page. DISCLAIMER!</Modal.Title>
@@ -20,30 +62,7 @@ export default function Exercise() {
           </Button>
         </Modal.Footer>
       </Modal>
-        <h4>Knee Rolls</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/39gL6fOqKWI?si=THUISPCoNrJmX0oF" title="YouTube video1" allowFullScreen></iframe>
-</div>
-        <h4>Knee Hugs</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/eP0DkztNhcs?si=XtTt44NgyJCXRKyN" title="YouTube video2" allowFullScreen></iframe>
-</div>
-        <h4>Pelvic Tilts</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/44D6Xc2Fkek?si=ePRC28KBw3saJmo3" title="YouTube video3" allowFullScreen></iframe>
-</div>
-        <h4>Bridge</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/Ls0ge81SeeQ?si=TJp06wsIPaZilgt3" title="YouTube video4" allowFullScreen></iframe>
-</div>
-        <h4>4 point kneeling with alternate arm raise</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/wz3N_VVe9nE?si=xtnIh297iBLkfb9z" title="YouTube video5" allowFullScreen></iframe>
-</div>
-        <h4>4 point kneeling with alternate leg raise</h4>
-        <div className="ratio ratio-16x9">
-  <iframe src="https://www.youtube.com/embed/ypYVo4UqNwU?si=4d_djZPJOIo34qz7" title="YouTube video6" allowFullScreen></iframe>
-</div>
     </Container>
   )
 }
+
