@@ -1,10 +1,13 @@
 // Import the react JS packages
 import axios from "axios";
 import { useState } from "react";
+import {jwtDecode} from "jwt-decode"
+
 // Define the Login function.
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState(null);
   // Create the submit method.
   const submit = async (e) => {
     e.preventDefault();
@@ -22,12 +25,17 @@ export const Login = () => {
     },
     );
 
+    const decodedToken = jwtDecode(data.access);
+    const userId = decodedToken.user_id;
+    setUserId(userId);
     // Initialize the access & refresh token in localstorage.
     localStorage.clear();
     localStorage.setItem("access_token", data.access);
     localStorage.setItem("refresh_token", data.refresh);
+    localStorage.setItem("decoded_token", userId)
     axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
-    window.location.href = "/";
+    window.location.href = `/`;
+
   };
   return (
     <div className="Auth-form-container">

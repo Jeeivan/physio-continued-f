@@ -34,7 +34,6 @@ export default function NavBar() {
             <Link to='/login'>Login</Link>
             &nbsp; | &nbsp;
             <Link to='/signup'>Sign Up</Link>
-            &nbsp; | &nbsp;
             </>
           )}
         </nav>

@@ -17,9 +17,18 @@ export default function Form() {
       medication: '',
       work: '',
       goals: '',
-      user: '',
+      user: 'http://localhost:8000/users/3/'
     });
   
+    // useEffect(() => {
+    //   // Fetch user ID from local storage or wherever you store it after login
+    //   const userId = localStorage.getItem('user_id'); // Replace 'user_id' with your actual key
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     user: userId,
+    //   }));
+    // }, []);
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prevFormData) => ({
@@ -28,12 +37,30 @@ export default function Form() {
       }));
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      // You can handle form submission logic here, e.g., sending data to the backend
-      console.log('Form submitted:', formData);
-      // Call your backend API to send the formData
-    };
+  
+      try {
+          const response = await fetch('http://localhost:8000/physioformadd/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+              },
+              body: JSON.stringify(formData),
+          });
+  
+          if (response.ok) {
+              console.log('Form submitted successfully');
+              window.location.href = "/response";
+          } else {
+              console.error('Failed to submit form:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error submitting form:', error);
+      }
+  };
+  
   
     return (
         <form onSubmit={handleSubmit}>
