@@ -16,6 +16,7 @@ export default function ResponsePage() {
           }
         );
         const data = await response.json();
+        console.log("API Response:", data);
         setPhysioFormData(data);
       } catch (error) {
         console.log("Error fetching physioform data", error);
