@@ -1,68 +1,73 @@
-import {useState} from 'react'
-import '../../css/PhysioForm.css'
+import { useState, useEffect } from 'react';
+import '../../css/PhysioForm.css';
 
-export default function Form() {
-    const areaOptions = ['low back', 'neck', 'shoulder', 'elbow', 'wrist', 'hand', 'hip', 'knee', 'ankle/foot'];
+export default function Form({ existingData, isEditMode }) {
+  const areaOptions = ['low back', 'neck', 'shoulder', 'elbow', 'wrist', 'hand', 'hip', 'knee', 'ankle/foot'];
+  const physioFormId = localStorage.getItem("physio_form");
+  console.log(isEditMode);
 
-    const [formData, setFormData] = useState({
-      date: '',
-      body_part: '',
-      time: '',
-      trauma: '',
-      location: '',
-      scans: '',
-      aggs: '',
-      eases: '',
-      past_treatment: '',
-      medication: '',
-      work: '',
-      goals: '',
-      user: 'http://localhost:8000/users/3/'
-    });
-  
-    // useEffect(() => {
-    //   // Fetch user ID from local storage or wherever you store it after login
-    //   const userId = localStorage.getItem('user_id'); // Replace 'user_id' with your actual key
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     user: userId,
-    //   }));
-    // }, []);
+  const [formData, setFormData] = useState({
+    date: '',
+    body_part: '',
+    time: '',
+    trauma: '',
+    location: '',
+    scans: '',
+    aggs: '',
+    eases: '',
+    past_treatment: '',
+    medication: '',
+    work: '',
+    goals: '',
+    user: 'http://localhost:8000/users/3/',
+  });
 
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-          const response = await fetch('http://localhost:8000/physioformadd/', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-              },
-              body: JSON.stringify(formData),
-          });
-  
-          if (response.ok) {
-              console.log('Form submitted successfully');
-              window.location.href = "/response";
-          } else {
-              console.error('Failed to submit form:', response.statusText);
-          }
-      } catch (error) {
-          console.error('Error submitting form:', error);
+  useEffect(() => {
+    if (existingData) {
+      setFormData(existingData);
+    }
+  }, [existingData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const apiUrl = isEditMode
+      ? `http://localhost:8000/physioformupdate/${physioFormId}/`
+      : 'http://localhost:8000/physioformadd/';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: isEditMode ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('Form submitted successfully');
+        window.location.href = "/response";
+      } else {
+        console.error('Failed to submit form:', response.statusText);
       }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
   
   
     return (
+      <div>
+      <h1>{isEditMode ? 'Edit' : 'Create'} Physio Form</h1>
         <form onSubmit={handleSubmit}>
           <label>
             Date:
@@ -203,6 +208,7 @@ export default function Form() {
           <br />
           <button type="submit">Submit</button>
         </form>
+        </div>
       );
     };
 

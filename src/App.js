@@ -12,6 +12,8 @@ import { Logout } from "./components/logout";
 import { Login } from "./components/login";
 import Signup from "./components/signup";
 import './App.css'
+import PhysioFormUpdate from "./pages/PhysioForm/PhysioFormUpdate";
+import Treatment from "./pages/Treatment/Treatment";
 
 export default function App() {
   return (
@@ -24,10 +26,12 @@ export default function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/signup" element={<Signup />} />
         <Route path='/form' element={<PhysioForm />} />
+        <Route path='/form/update' element={<PhysioFormUpdate />} />
         <Route path='/response' element={<ResponsePage />} />
         <Route path='/exercise' element={<Exercise />} />
         <Route path='/management' element={<Management />} />
         <Route path='/faq' element={<Faq />} />
+        <Route path="/treatments/add/:id" element={<Treatment />}/>
       </Routes>
     </main>
   );
