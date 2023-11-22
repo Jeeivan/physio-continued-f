@@ -8,7 +8,6 @@ export default function Form({ existingData, isEditMode }) {
   console.log(isEditMode);
 
   const [formData, setFormData] = useState({
-    date: '',
     body_part: '',
     time: '',
     trauma: '',
@@ -70,17 +69,6 @@ export default function Form({ existingData, isEditMode }) {
       <div>
       <h1>{isEditMode ? 'Edit' : 'Create'} Physio Form</h1>
         <form onSubmit={handleSubmit}>
-          <label>
-            Date:
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-    
           <label>
             Body Part:
             <select
