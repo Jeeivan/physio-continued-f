@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import {jwtDecode} from "jwt-decode"
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const [userId, setUserId] = useState(null);
 
     async function createUser() {
         try {
@@ -49,8 +51,12 @@ export default function SignUp() {
 
       if (response.ok) {
         const data = await response.json();
+        const decodedToken = jwtDecode(data.access);
+        const userId = decodedToken.user_id;
+        setUserId(userId);
         localStorage.setItem("access_token", data.access);
         localStorage.setItem("refresh_token", data.refresh);
+        localStorage.setItem("decoded_token", userId)
         console.log("User logged in successfully");
         window.location.href = "/";
       } else {
