@@ -8,6 +8,7 @@ export default function Faq() {
     3: false,
     4: false,
     5: false,
+    6: false,
   });
 
   const toggleAnswer = (questionId) => {
@@ -48,7 +49,7 @@ export default function Faq() {
         <strong>Is there any one exercise I should be doing?</strong>
         {answersVisible[4] && (
           <div className={styles['faq-answer']}>
-            There is no one-size-fits-all exercise. It is all about finding the exerices that you are most comfotable with.
+            There is no one-size-fits-all exercise. It is all about finding the exerices that you are most comfotable with. Check out our exercises page for some general exercises you can start today!
           </div>
         )}
       </div>
@@ -57,6 +58,14 @@ export default function Faq() {
         {answersVisible[5] && (
           <div className={styles['faq-answer']}>
             There is no such thing as the best posture. What's more important is being in a position that is comfortable for you as this can vary between every individual. It is then important to understand whatever position you are in what's vital is to not stay in any one position for too long.
+          </div>
+        )}
+      </div>
+      <div className={styles['faq-question']} onClick={() => toggleAnswer(6)}>
+        <strong>Will I get better with just exercising?</strong>
+        {answersVisible[6] && (
+          <div className={styles['faq-answer']}>
+            No! Modern physiotherapy is now emphasising a biopsychosocial approach which means treatment is never just exercising alone. It includes looking into how many of hours of sleep you are getting, you're diet, you're weight, stresses in life, how active you are. By working on all these things is going to make sure you are putting yourself in the best positiion going forward.
           </div>
         )}
       </div>

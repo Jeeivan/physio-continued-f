@@ -89,10 +89,11 @@ export default function Form({ existingData, isEditMode }) {
           <label>
             Length of symptoms (months):
             <input
-              type="number"
+              type="text"
               name="time"
               value={formData.time}
               onChange={handleChange}
+              maxLength="15"
             />
           </label>
           <br />

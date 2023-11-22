@@ -1,0 +1,77 @@
+/* ResponsePage.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+}
+
+.physioform-container {
+  border: 1px solid #dee2e6; /* Light border color */
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fff; /* White background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a lifted effect */
+}
+
+.physioform-container h5 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff; /* Blue header text color */
+}
+
+.physioform-container strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #495057; /* Dark gray strong text color */
+}
+
+.treatment-details {
+  margin-top: 20px;
+}
+
+.treatment-details hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ddd; /* Light horizontal line color */
+}
+
+.treatment-btn {
+  margin: 10px;
+  padding: 8px 16px;
+  background-color: #28a745; /* Green button background color */
+  color: #fff; /* White button text color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.treatment-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+  
+}
+
+.delete-btn {
+  background-color: #dc3545; /* Red button background color */
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.link-btn {
+  text-decoration: none;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}

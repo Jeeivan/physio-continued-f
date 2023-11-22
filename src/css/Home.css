@@ -18,3 +18,8 @@
     color: #333; /* Dark text color */
   }
   
+  .wellness {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px; /* Adjust the margin as needed */
+  }

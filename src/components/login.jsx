@@ -1,43 +1,69 @@
-// Import the react JS packages
 import axios from "axios";
 import { useState } from "react";
-import {jwtDecode} from "jwt-decode"
+import { jwtDecode } from "jwt-decode";
 
-// Define the Login function.
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [userId, setUserId] = useState(null);
-  // Create the submit method.
+
   const submit = async (e) => {
     e.preventDefault();
     const user = {
       username: username,
       password: password,
     };
-    // Create the POST requuest
-    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/token/`, user,
-    {
-      headers: { "Content-Type": "application/json" },
-    },
-    {
-        withCredentials: true
-    },
-    );
 
-    const decodedToken = jwtDecode(data.access);
-    const userId = decodedToken.user_id;
-    setUserId(userId);
-    // Initialize the access & refresh token in localstorage.
-    localStorage.clear();
-    localStorage.setItem("access_token", data.access);
-    localStorage.setItem("refresh_token", data.refresh);
-    localStorage.setItem("decoded_token", userId)
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
-    window.location.href = `/`;
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/token/`,
+        user,
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
+      const decodedToken = jwtDecode(data.access);
+      const userId = decodedToken.user_id;
+
+      // Fetch user information to determine if the user is a superuser
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${data.access}`,
+            },
+          }
+        );
+        const userData = response.data;
+
+        localStorage.clear();
+        localStorage.setItem("access_token", data.access);
+        localStorage.setItem("refresh_token", data.refresh);
+        localStorage.setItem("decoded_token", userId);
+
+        // Set the isSuperUser state based on the user information
+        if (userData.is_staff === true) {
+          localStorage.setItem("isSuperUser", "true");
+        } else {
+          localStorage.setItem("isSuperUser", "false");
+        }
+
+        console.log("Is SuperUser:", userData.is_staff);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
+        window.location.href = `/`;
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   };
+
   return (
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={submit}>

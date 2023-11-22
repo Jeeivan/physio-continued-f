@@ -1,45 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../../css/ResponsePage.css'
 
 export default function ResponsePage() {
   const [physioFormData, setPhysioFormData] = useState([]);
   const [treatmentData, setTreatmentData] = useState([]);
   const userId = localStorage.getItem('decoded_token');
   const isSuperUser = localStorage.getItem('isSuperUser') === 'true';
-
-  useEffect(() => {
-    // Clear isSuperUser when the component mounts or when the user logs out
-    console.log(userId);
-    console.log('Before fetching user data. isSuperUser:', isSuperUser);
-
-    // Fetch user information to determine if the user is a superuser
-    async function fetchUserData() {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}/`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        });
-        const userData = await response.json();
-
-        // Set the isSuperUser state based on the user information
-        if (userData.is_staff === true) {
-          localStorage.setItem('isSuperUser', 'true'); // Save to local storage
-        }
-        console.log(userData.is_staff);
-        console.log('After setting isSuperUser:', localStorage.getItem('isSuperUser'));
-      } catch (error) {
-        console.log('Error fetching user data', error);
-      }
-    }
-
-    // Fetch user data when the component mounts or when the user logs in
-    if (userId) {
-      fetchUserData();
-    }
-  }, [userId, isSuperUser]);
 
   useEffect(() => {
     async function fetchData() {
@@ -71,8 +38,10 @@ export default function ResponsePage() {
               console.log(data);
             } else {
               // If the user is a superuser, set all physioform data
-              setPhysioFormData(data);
+              const physioformsWithoutTreatments = data.filter((physioform) => !physioform.treatment_complete);
+              setPhysioFormData(physioformsWithoutTreatments);
               console.log(physioFormData);
+              
             }
           } else {
             console.error("Physioform data is not an array:", data);
@@ -84,7 +53,7 @@ export default function ResponsePage() {
     }
 
     fetchData();
-  }, [isSuperUser, userId, setPhysioFormData, physioFormData]);
+  }, [isSuperUser, userId]);
 
   useEffect(() => {
     // Fetch treatment data for the most recent physioform entry
@@ -151,12 +120,12 @@ export default function ResponsePage() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Physioform Details</h1>
       {console.log(physioFormData)}
       {physioFormData.length > 0 ? (
         physioFormData.map((formData, index) => (
-          <div key={index}>
+          <div className="physioform-container" key={index}>
             <h5>{getIdFromUrl(formData.url)}</h5>
             <strong>Date:</strong> {formData.date !== undefined ? formData.date : 'N/A'}<br />
             <strong>Body Part:</strong> {formData.body_part}<br />
@@ -170,10 +139,10 @@ export default function ResponsePage() {
             <strong>Medication:</strong> {formData.medication}<br />
             <strong>Work:</strong> {formData.work}<br />
             <strong>Goals:</strong> {formData.goals}<br />
-            <hr />
+            <strong>Treatment:</strong> {formData.treatment_complete.toString()}<br />
             {isSuperUser && (
               <Link to={`/treatments/add/${getIdFromUrl(formData.url)}`}>
-                <button>Add Treatment</button>
+                <button className="treatment-btn">Add Treatment</button>
               </Link>
             )}
           </div>
@@ -182,24 +151,28 @@ export default function ResponsePage() {
         <p>No physioform data available.</p>
       )}
 
-      <button onClick={handleDeletePhysioForm}>Delete</button>
-      <Link to="/form/update">
-        <button>Edit</button>
-      </Link>
+          {!isSuperUser && (
+            <>
+              <button className='delete-btn' onClick={handleDeletePhysioForm}>Delete</button>
+              <Link to="/form/update">
+                <button className='link-btn'>Edit</button>
+              </Link>
+            </>
+          )}
 
       {!isSuperUser && treatmentData.length > 0 ? (
-        <div>
+        <div className="treatment-details">
+          <hr />
           <h2>Treatment Details</h2>
           {treatmentData.map((treatment, treatmentIndex) => (
             <div key={treatmentIndex}>
               <strong>Date:</strong> {treatment.date}<br />
               <strong>Response:</strong> {treatment.response}<br />
-              <hr />
             </div>
           ))}
         </div>
       ) : (
-        <p>{!isSuperUser ? "A Physio will look to answer your query as soon as they can!" : ""}</p>
+        <p>{!isSuperUser ? "A Physio will look to answer your query as soon as they can! In the mean time why don't you check out the useful information we have to offer in our other pages!" : ""}</p>
       )}
     </div>
   );
