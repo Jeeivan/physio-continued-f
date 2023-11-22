@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ResponsePage from './pages/ResponsePage/ResponsePage';
 import NavBar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
@@ -7,7 +7,6 @@ import Exercise from './pages/Exercise/Exercise';
 import Faq from './pages/Faq/Faq';
 import Management from './pages/Management/Management';
 // import Home from "./components/home";
-import { Navigation } from "./components/navigation";
 import { Logout } from "./components/logout";
 import { Login } from "./components/login";
 import Signup from "./components/signup";

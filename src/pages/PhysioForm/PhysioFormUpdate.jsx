@@ -9,7 +9,7 @@ export default function PhysioFormUpdate() {
   useEffect(() => {
     async function fetchExistingData() {
       try {
-        const response = await fetch(`http://localhost:8000/physioform/${physioFormId}/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/physioform/${physioFormId}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

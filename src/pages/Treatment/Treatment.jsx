@@ -8,7 +8,7 @@ export default function Treatment() {
   
     const handleAddTreatment = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/treatmentsadd/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/treatmentsadd/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

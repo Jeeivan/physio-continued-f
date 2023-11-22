@@ -7,7 +7,7 @@ export default function SignUp() {
 
     async function createUser() {
         try {
-            const response = await fetch("http://localhost:8000/signup/", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signup/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default function SignUp() {
 
   async function loginUser() {
     try {
-      const response = await fetch("http://localhost:8000/token/", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/token/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

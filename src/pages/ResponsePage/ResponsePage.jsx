@@ -15,7 +15,7 @@ export default function ResponsePage() {
     // Fetch user information to determine if the user is a superuser
     async function fetchUserData() {
       try {
-        const response = await fetch(`http://localhost:8000/users/${userId}/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -39,12 +39,12 @@ export default function ResponsePage() {
     if (userId) {
       fetchUserData();
     }
-  }, []);
+  }, [userId, isSuperUser]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        let apiUrl = `http://localhost:8000/physioform/`;
+        let apiUrl = `${process.env.REACT_APP_BACKEND_URL}/physioform/`;
 
         // If the user is not a superuser, fetch only their most recent physioform data
         if (!isSuperUser) {
@@ -84,7 +84,7 @@ export default function ResponsePage() {
     }
 
     fetchData();
-  }, []);
+  }, [isSuperUser, userId, setPhysioFormData, physioFormData]);
 
   useEffect(() => {
     // Fetch treatment data for the most recent physioform entry
@@ -93,7 +93,7 @@ export default function ResponsePage() {
 
       async function fetchTreatmentData() {
         try {
-          const response = await fetch(`http://localhost:8000/treatments/physioform/${physioFormId}/`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/treatments/physioform/${physioFormId}/`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -116,14 +116,14 @@ export default function ResponsePage() {
 
       fetchTreatmentData();
     }
-  }, [physioFormData]);
+  }, [physioFormData, isSuperUser, setTreatmentData]);
 
   const handleDeletePhysioForm = async () => {
     // Check if physioFormData has at least one element
     if (physioFormData.length > 0) {
       const physioFormId = getIdFromUrl(physioFormData[0].url);
       try {
-        const response = await fetch(`http://localhost:8000/physioformdelete/${physioFormId}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/physioformdelete/${physioFormId}`, {
           method: 'DELETE',
           headers: {
             "Content-Type": "application/json",

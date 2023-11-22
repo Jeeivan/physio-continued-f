@@ -19,7 +19,7 @@ export default function Form({ existingData, isEditMode }) {
     medication: '',
     work: '',
     goals: '',
-    user: 'http://localhost:8000/users/3/',
+    user: `${process.env.REACT_APP_BACKEND_URL}/users/3/`,
   });
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export default function Form({ existingData, isEditMode }) {
     e.preventDefault();
 
     const apiUrl = isEditMode
-      ? `http://localhost:8000/physioformupdate/${physioFormId}/`
-      : 'http://localhost:8000/physioformadd/';
+      ? `${process.env.REACT_APP_BACKEND_URL}/physioformupdate/${physioFormId}/`
+      : `${process.env.REACT_APP_BACKEND_URL}/physioformadd/`;
 
     try {
       const response = await fetch(apiUrl, {

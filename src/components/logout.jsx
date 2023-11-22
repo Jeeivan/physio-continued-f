@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 export const Logout = () => {
   useEffect(() => {
     (async () => {
       try {
+        // eslint-disable-next-line no-unused-vars
         const { data } = await axios.post(
-          "http://localhost:8000/logout/",
+          `${process.env.REACT_APP_BACKEND_URL}/logout/`,
           {
             refresh_token: localStorage.getItem("refresh_token"),
           },

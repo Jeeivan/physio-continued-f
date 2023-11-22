@@ -7,6 +7,7 @@ import {jwtDecode} from "jwt-decode"
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [userId, setUserId] = useState(null);
   // Create the submit method.
   const submit = async (e) => {
@@ -16,7 +17,7 @@ export const Login = () => {
       password: password,
     };
     // Create the POST requuest
-    const { data } = await axios.post("http://localhost:8000/token/", user,
+    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/token/`, user,
     {
       headers: { "Content-Type": "application/json" },
     },
