@@ -4,6 +4,7 @@ import '../../css/PhysioForm.css';
 export default function Form({ existingData, isEditMode }) {
   const areaOptions = ['low back', 'neck', 'shoulder', 'elbow', 'wrist', 'hand', 'hip', 'knee', 'ankle/foot'];
   const physioFormId = localStorage.getItem("physio_form");
+  const userId = localStorage.getItem('decoded_token');
   console.log(isEditMode);
 
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ export default function Form({ existingData, isEditMode }) {
     medication: '',
     work: '',
     goals: '',
-    user: `${process.env.REACT_APP_BACKEND_URL}/users/3/`,
+    user: `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/`,
   });
 
   useEffect(() => {
