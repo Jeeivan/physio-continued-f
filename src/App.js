@@ -6,7 +6,6 @@ import PhysioForm from './pages/PhysioForm/PhysioForm';
 import Exercise from './pages/Exercise/Exercise';
 import Faq from './pages/Faq/Faq';
 import Management from './pages/Management/Management';
-// import Home from "./components/home";
 import { Logout } from "./components/logout";
 import { Login } from "./components/login";
 import Signup from "./components/signup";

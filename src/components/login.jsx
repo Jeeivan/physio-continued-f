@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
@@ -42,6 +43,7 @@ export const Login = () => {
         const userData = response.data;
 
         localStorage.clear();
+        localStorage.setItem("name", username)
         localStorage.setItem("access_token", data.access);
         localStorage.setItem("refresh_token", data.refresh);
         localStorage.setItem("decoded_token", userId);
@@ -61,6 +63,7 @@ export const Login = () => {
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setPasswordError("The details you have provided are incorrect!")
     }
   };
 
@@ -93,6 +96,7 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">
               Submit

@@ -24,6 +24,10 @@
       margin-top: 20px; /* Adjust the margin as needed */
   }
 
+  .home-container h3 {
+    color: rgb(42, 38, 79)
+  }
+
   @media (max-width: 768px) {
     h1 {
       font-size: 30px; /* Adjust the font size for smaller screens */
