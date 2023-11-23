@@ -9,6 +9,7 @@ export default function Home() {
     } else {
       (async () => {
         try {
+          // eslint-disable-next-line
           const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/home/`, {
             headers: {
               "Content-Type": "application/json",

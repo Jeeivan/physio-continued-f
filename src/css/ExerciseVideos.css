@@ -37,3 +37,10 @@
 h4 {
   margin: 20px 0;
 }
+
+@media (max-width: 768px) {
+  .video-container iframe {
+    width: 100%; /* Set iframe width to 100% for smaller screens */
+    margin-left: 0; /* Remove margin-left on smaller screens */
+  }
+}

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/ResponsePage.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function ResponsePage() {
   const [physioFormData, setPhysioFormData] = useState([]);
   const [treatmentData, setTreatmentData] = useState([]);
   const userId = localStorage.getItem('decoded_token');
   const isSuperUser = localStorage.getItem('isSuperUser') === 'true';
+  const [message, setMessage] = useState("A Physio will look to answer your query as soon as they can! In the mean time why don't you check out the useful information we have to offer in our other pages!")
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -53,12 +56,14 @@ export default function ResponsePage() {
     }
 
     fetchData();
+    // eslint-disable-next-line
   }, [isSuperUser, userId]);
 
   useEffect(() => {
     // Fetch treatment data for the most recent physioform entry
     if (!isSuperUser && physioFormData && physioFormData.length > 0) {
       const physioFormId = getIdFromUrl(physioFormData[0].url);
+      localStorage.setItem("physio_form", physioFormId);
 
       async function fetchTreatmentData() {
         try {
@@ -73,11 +78,15 @@ export default function ResponsePage() {
           const data = await response.json();
 
           if (Array.isArray(data)) {
+            if (data.length > 0) { 
+            console.log(data);
             setTreatmentData(data);
-            localStorage.setItem("physio_form", physioFormId);
+            setMessage('')
+            // localStorage.setItem("physio_form", physioFormId);
           } else {
             console.error("Treatment data is not an array:", data);
           }
+        }
         } catch (error) {
           console.log("Error fetching treatment data", error);
         }
@@ -102,7 +111,7 @@ export default function ResponsePage() {
         if (response.ok) {
           console.log('Physio Form deleted successfully');
           setPhysioFormData([]);
-          // window.location.href = "/";
+          navigate("/")
         } else {
           console.error('Error deleting physio form');
         }
@@ -126,7 +135,6 @@ export default function ResponsePage() {
       {physioFormData.length > 0 ? (
         physioFormData.map((formData, index) => (
           <div className="physioform-container" key={index}>
-            <h5>{getIdFromUrl(formData.url)}</h5>
             <strong>Date:</strong> {formData.date !== undefined ? formData.date : 'N/A'}<br />
             <strong>Body Part:</strong> {formData.body_part}<br />
             <strong>Time:</strong> {formData.time}<br />
@@ -139,7 +147,16 @@ export default function ResponsePage() {
             <strong>Medication:</strong> {formData.medication}<br />
             <strong>Work:</strong> {formData.work}<br />
             <strong>Goals:</strong> {formData.goals}<br />
-            <strong>Treatment:</strong> {formData.treatment_complete.toString()}<br />
+            {/* <strong>Treatment:</strong> {formData.treatment_complete.toString()}<br /> */}
+            {!isSuperUser && (
+            <>
+              <button className='delete-btn' onClick={handleDeletePhysioForm}>Delete</button>
+              <Link to="/form/update">
+                <button className='link-btn'>Edit</button>
+              </Link>
+              <p>{message}</p>
+            </>
+          )}
             {isSuperUser && (
               <Link to={`/treatments/add/${getIdFromUrl(formData.url)}`}>
                 <button className="treatment-btn">Add Treatment</button>
@@ -148,17 +165,8 @@ export default function ResponsePage() {
           </div>
         ))
       ) : (
-        <p>No physioform data available.</p>
+        <p>You have no physio queries. If you would like to make one then please head to the Physio Form page.</p>
       )}
-
-          {!isSuperUser && (
-            <>
-              <button className='delete-btn' onClick={handleDeletePhysioForm}>Delete</button>
-              <Link to="/form/update">
-                <button className='link-btn'>Edit</button>
-              </Link>
-            </>
-          )}
 
       {!isSuperUser && treatmentData.length > 0 ? (
         <div className="treatment-details">
@@ -172,7 +180,7 @@ export default function ResponsePage() {
           ))}
         </div>
       ) : (
-        <p>{!isSuperUser ? "A Physio will look to answer your query as soon as they can! In the mean time why don't you check out the useful information we have to offer in our other pages!" : ""}</p>
+        <p>{!isSuperUser ? "" : ""}</p>
       )}
     </div>
   );

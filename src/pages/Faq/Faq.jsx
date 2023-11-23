@@ -9,6 +9,7 @@ export default function Faq() {
     4: false,
     5: false,
     6: false,
+    7: false,
   });
 
   const toggleAnswer = (questionId) => {
@@ -62,13 +63,22 @@ export default function Faq() {
         )}
       </div>
       <div className={styles['faq-question']} onClick={() => toggleAnswer(6)}>
-        <strong>Will I get better with just exercising?</strong>
-        {answersVisible[6] && (
-          <div className={styles['faq-answer']}>
-            No! Modern physiotherapy is now emphasising a biopsychosocial approach which means treatment is never just exercising alone. It includes looking into how many of hours of sleep you are getting, you're diet, you're weight, stresses in life, how active you are. By working on all these things is going to make sure you are putting yourself in the best positiion going forward.
-          </div>
-        )}
-      </div>
+  <strong>Will I see improvement solely through exercise?</strong>
+  {answersVisible[6] && (
+    <div className={styles['faq-answer']}>
+      While exercise is an essential component, modern physiotherapy adopts a holistic approach. Your journey to recovery involves more than just physical activity. Factors such as sleep patterns, diet, weight management, stress levels, and overall activity play crucial roles. Addressing these aspects collectively ensures a comprehensive and effective strategy to optimize your well-being.
+    </div>
+  )}
+</div>
+
+<div className={styles['faq-question']} onClick={() => toggleAnswer(7)}>
+  <strong>Is a massage or hands-on therapy necessary for recovery?</strong>
+  {answersVisible[7] && (
+    <div className={styles['faq-answer']}>
+      Not necessarily! At WaitLessWellness, we prioritize evidence-based practices. While hands-on treatments may offer immediate relief for some, it's essential to recognize that such approaches might provide short-term benefits. For sustainable, long-term management, our focus as physiotherapists is on empowering you with tools and exercises. This comprehensive approach ensures that you can independently manage your condition effectively.
+    </div>
+  )}
+</div>
     </div>
   );
 }

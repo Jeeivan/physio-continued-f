@@ -58,6 +58,7 @@
 
 .delete-btn {
   background-color: #dc3545; /* Red button background color */
+  margin-top: 20px;
   margin-bottom: 20px;
   margin-right: 20px;
 }
@@ -68,6 +69,7 @@
 
 .link-btn {
   text-decoration: none;
+  margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 20px;
 }

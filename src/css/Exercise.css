@@ -17,3 +17,13 @@
     color: rgb(42,38,79);
   }
   
+  @media (max-width: 768px) {
+    .exercise-buttons {
+      flex-direction: column; /* Change to a column layout on smaller screens */
+      align-items: center; /* Center align buttons */
+    }
+  
+    .exercise-buttons button {
+      margin: 10px 0; /* Add vertical margin to separate buttons */
+    }
+  }

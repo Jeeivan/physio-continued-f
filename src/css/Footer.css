@@ -1,0 +1,15 @@
+/* Footer.css */
+
+.footer-container {
+    background-color: rgb(42, 38, 79);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+.footer-container p {
+    color: white;
+}

@@ -5,6 +5,7 @@ export default function Form({ existingData, isEditMode }) {
   const areaOptions = ['low back', 'neck', 'shoulder', 'elbow', 'wrist', 'hand', 'hip', 'knee', 'ankle/foot'];
   const physioFormId = localStorage.getItem("physio_form");
   const userId = localStorage.getItem('decoded_token');
+  console.log(physioFormId);
   console.log(isEditMode);
 
   const [formData, setFormData] = useState({
@@ -21,6 +22,8 @@ export default function Form({ existingData, isEditMode }) {
     goals: '',
     user: `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/`,
   });
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (existingData) {
@@ -57,7 +60,8 @@ export default function Form({ existingData, isEditMode }) {
         console.log('Form submitted successfully');
         window.location.href = "/response";
       } else {
-        console.error('Failed to submit form:', response.statusText);
+        setErrorMessage('You have already submitted a form in the last 30 days.');
+        return;
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -68,9 +72,10 @@ export default function Form({ existingData, isEditMode }) {
     return (
       <div>
       <h1>{isEditMode ? 'Edit' : 'Create'} Physio Form</h1>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
           <label>
-            Body Part:
+            Body Part
             <select
               name="body_part"
               value={formData.body_part}
@@ -87,7 +92,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Length of symptoms (months):
+            How long have your symptoms been going on for? 
             <input
               type="text"
               name="time"
@@ -99,7 +104,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Was there any trauma at the time the symptoms started?:
+            Was there any trauma at the time the symptoms started? 
             <input
               type="text"
               name="trauma"
@@ -110,7 +115,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Location of pain? e.g. front of the knee:
+            Location of pain? e.g. front of the knee. And does the pain spread or stay in that one location? 
             <input
               type="text"
               name="location"
@@ -121,7 +126,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Have you had any scans for this pain?:
+            Have you had any scans for this pain? If yes please enter the results for these.
             <input
               type="text"
               name="scans"
@@ -132,7 +137,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            What aggravates/makes the pain worse?:
+            What aggravates/makes the pain worse?
             <input
               type="text"
               name="aggs"
@@ -143,7 +148,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            What eases/makes the pain better?:
+            What eases/makes the pain better?
             <input
               type="text"
               name="eases"
@@ -154,7 +159,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Any past Physio/Treatment for your current symptoms?:
+            Any past Physio/Treatment for your current symptoms?
             <input
               type="text"
               name="past_treatment"
@@ -165,7 +170,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Medication:
+            Medication List
             <input
               type="text"
               name="medication"
@@ -176,7 +181,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            Are you working and if so please state your profession and how is this affected?:
+            Are you working and if so please state your profession and how is this affected if so?
             <input
               type="text"
               name="work"
@@ -187,7 +192,7 @@ export default function Form({ existingData, isEditMode }) {
           <br />
     
           <label>
-            What are your goals and looking to get out of physiotherapy?:
+            What are your goals and looking to get out of physiotherapy? :
             <input
               type="text"
               name="goals"

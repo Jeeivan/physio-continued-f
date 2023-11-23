@@ -23,3 +23,9 @@
       height: auto;
       margin-top: 20px; /* Adjust the margin as needed */
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 30px; /* Adjust the font size for smaller screens */
+    }
+  }

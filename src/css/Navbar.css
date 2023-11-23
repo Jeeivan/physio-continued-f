@@ -1,28 +1,40 @@
 /* NavBar.css */
 .NavBar {
-    background-color: rgb(42,38,79);
-    color: white;
-    padding: 15px
+  background-color: rgb(42,38,79);
+  color: white;
+  padding: 15px;
 }
 
 .NavBar h1 {
-    color: white;
+  color: white;
+  margin: 0; /* Remove default margin */
 }
 
 nav {
-    background-color: rgb(42,38,79);;
-    padding: 10px;
-    text-align: center;
+  background-color: rgb(42,38,79);
+  padding: 10px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 18px;
+  margin: 0 8px; /* Add some spacing between links */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+nav a:hover {
+  background-color: #1f1a41;
+}
+
+@media (max-width: 768px) {
+  .NavBar h1 {
+      font-size: 24px; /* Adjust the font size for smaller screens */
   }
-  
+
   nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    font-size: 20px;
+      font-size: 16px; /* Adjust the font size for smaller screens */
   }
-  
-  nav a:hover {
-    background-color: #1f1a41;
-  }
-  
+}
