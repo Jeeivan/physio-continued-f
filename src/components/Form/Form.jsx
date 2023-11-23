@@ -9,6 +9,7 @@ export default function Form({ existingData, isEditMode }) {
   console.log(isEditMode);
 
   const [formData, setFormData] = useState({
+    name: '',
     body_part: '',
     time: '',
     trauma: '',
@@ -46,6 +47,8 @@ export default function Form({ existingData, isEditMode }) {
       ? `${process.env.REACT_APP_BACKEND_URL}/physioformupdate/${physioFormId}/`
       : `${process.env.REACT_APP_BACKEND_URL}/physioformadd/`;
 
+    const userName = localStorage.getItem('name')
+
     try {
       const response = await fetch(apiUrl, {
         method: isEditMode ? 'PUT' : 'POST',
@@ -53,7 +56,10 @@ export default function Form({ existingData, isEditMode }) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          name: userName
+        }),
       });
 
       if (response.ok) {
