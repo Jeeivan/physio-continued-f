@@ -38,8 +38,14 @@ nav a:hover {
     font-size: 20px; /* Adjust the font size for smaller screens */
   }
 
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   nav a {
     font-size: 14px; /* Adjust the font size for smaller screens */
-    margin: 0 4px; /* Further reduce spacing between links */
+    margin: 4px; /* Adjust spacing between links */
   }
 }
