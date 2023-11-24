@@ -5,8 +5,6 @@ export default function Form({ existingData, isEditMode }) {
   const areaOptions = ['low back', 'neck', 'shoulder', 'elbow', 'wrist', 'hand', 'hip', 'knee', 'ankle/foot'];
   const physioFormId = localStorage.getItem("physio_form");
   const userId = localStorage.getItem('decoded_token');
-  console.log(physioFormId);
-  console.log(isEditMode);
 
   const [formData, setFormData] = useState({
     name: '',

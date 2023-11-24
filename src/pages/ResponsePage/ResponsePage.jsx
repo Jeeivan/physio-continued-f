@@ -131,7 +131,6 @@ export default function ResponsePage() {
   return (
     <div className="container">
       <h1>Physioform Details</h1>
-      {console.log(physioFormData)}
       {physioFormData.length > 0 ? (
         physioFormData.map((formData, index) => (
           <div className="physioform-container" key={index}>
