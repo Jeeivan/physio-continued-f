@@ -91,6 +91,7 @@ export default function SignUp() {
           />
         </label>
         <br />
+        <p>Your username must not have any spaces in it.</p>
         <label>
           Password:
           <input
