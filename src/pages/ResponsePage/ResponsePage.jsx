@@ -38,12 +38,10 @@ export default function ResponsePage() {
               const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
               const mostRecentPhysioformData = sortedData[0];
               setPhysioFormData([mostRecentPhysioformData]);
-              console.log(data);
             } else {
               // If the user is a superuser, set all physioform data
               const physioformsWithoutTreatments = data.filter((physioform) => !physioform.treatment_complete);
               setPhysioFormData(physioformsWithoutTreatments);
-              console.log(physioFormData);
               
             }
           } else {
@@ -79,7 +77,6 @@ export default function ResponsePage() {
 
           if (Array.isArray(data)) {
             if (data.length > 0) { 
-            console.log(data);
             setTreatmentData(data);
             setMessage('')
             // localStorage.setItem("physio_form", physioFormId);
