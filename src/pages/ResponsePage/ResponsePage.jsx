@@ -136,7 +136,8 @@ export default function ResponsePage() {
         physioFormData.map((formData, index) => (
           <div className="physioform-container" key={index}>
             <strong>Name:</strong>{formData.name}<br />
-            <strong>Date:</strong> {formData.date !== undefined ? formData.date : 'N/A'}<br />
+            <strong>Age:</strong>{formData.age}<br />
+            <strong>Date:</strong> {formData.date}<br />
             <strong>Body Part:</strong> {formData.body_part}<br />
             <strong>Time:</strong> {formData.time}<br />
             <strong>Trauma:</strong> {formData.trauma}<br />

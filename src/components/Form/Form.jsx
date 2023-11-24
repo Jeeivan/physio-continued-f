@@ -10,6 +10,7 @@ export default function Form({ existingData, isEditMode }) {
 
   const [formData, setFormData] = useState({
     name: '',
+    age: '',
     body_part: '',
     time: '',
     trauma: '',
@@ -80,6 +81,17 @@ export default function Form({ existingData, isEditMode }) {
       <h1>{isEditMode ? 'Edit' : 'Create'} Physio Form</h1>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
+                <label>
+                  Please enter your age 
+                  <input
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    maxLength="2"
+                  />
+                </label>
+                <br />
           <label>
             Body Part
             <select
