@@ -34,7 +34,7 @@ export default function SignUp() {
         console.log("User created successfully");
       } else {
         // Handle error cases
-        setPasswordError("Password does not meet the criteria");
+        setPasswordError("Username/Password does not meet the criteria");
         console.log("Failed to create user");
       }
     } catch (error) {
