@@ -6,7 +6,7 @@ My aim for the final project was to build a full-stack website using a Django ba
 
 ## Deployment Link
 
-(https://jeeivan.github.io/Space-Invaders-Project/)](https://physio-frontend-production.up.railway.app/
+(https://physio-frontend-production.up.railway.app/)
 
 ## I was given just over a week to work on this project and I worked independently to do this with the help of our instructors if I was facing any difficulties.
 
