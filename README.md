@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# SEI Unit 4 Project ReadMe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description
 
-## Available Scripts
+My aim for the final project was to build a full-stack website using a Django backend with PostgreSQL and a React frontend that caters to users in need of physiotherapy. As a former senior physiotherapist, I have firsthand experience with the challenges faced by the NHS, including its extensive waiting lists. Therefore, my plan for this website is to provide a platform where users can not only access general information about managing their symptoms but also submit a brief physiotherapy form. This form will allow me to address the specific needs of each patient, enabling them to initiate their treatment while awaiting a face-to-face appointment.
 
-In the project directory, you can run:
+## Deployment Link
 
-### `npm start`
+(https://jeeivan.github.io/Space-Invaders-Project/)](https://physio-frontend-production.up.railway.app/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## I was given just over a week to work on this project and I worked independently to do this with the help of our instructors if I was facing any difficulties.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+CSS, HTML, Vanilla JavaScript ES6, Django, Django Rest Framework, PostgreSQL,  React, Python
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Brief
 
-### `npm run build`
+Project Aim:
+Build a full-stack Django/React web app.
+Utilise Django as the backend and React as the frontend.
+Demonstrate proficiency in designing databases, problem-solving, and seamless data transfer between technologies.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Technical Requirements:
+Build a full-stack Django/React application.
+Connect to and perform data operations on a PostgreSQL database.
+Implement full-CRUD data operations across models, excluding the User model.
+Authenticate users using Django's built-in authentication.
+Implement authorization for data resource operations.
+Deploy the app online using Railway.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Planning
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Page Descriptions:
 
-### `npm run eject`
+Home Page:
+Personalised narratives about the creator's experiences.
+Addressing the issues of NHS waiting times, emphasising the need for concise information.
+Encouragement for users to consult a GP for in-depth concerns.
+Disclaimer section to set expectations.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+FAQ Page:
+Common questions with collapsible answers for a clean user experience.
+Questions covering exercise in pain, diagnosis requirements, posture, etc.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Exercise Page:
+General information on exercises for back pain.
+Video links embedded for visual guidance.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Management Page:
+Information on how to manage various physio conditions.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Physio Form Page:
+Subjective Form with CRUD functionality.
+Questions include body part selection, history, trauma, pain details, scans, aggravating factors, previous treatments, medications, work impact, goals, etc.
 
-## Learn More
+My Question/Responses Page:
+Display submitted physio forms in a readable layout.
+Indicate "Awaiting response" or display responses.
+Super users can view all questions; normal users see only their questions.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Technical Features:
+User Authentication:
+Implement a login/sign-up page.
+Set limits on query submissions per user.
+Admin login for site management.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Access Control:
+Restrict page access to logged-in users.
+Super users have access to all pages and questions.
 
-### Code Splitting
+Additional Considerations:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Home Page Content:
+Discuss personal experiences.
+Address NHS waiting time issues.
+Emphasise the site's purpose of providing concise information.
 
-### Analyzing the Bundle Size
+User Interaction:
+Utilise collapsible sections for FAQs.
+Embed video links for exercises.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Form Functionality:
+Enable CRUD functionality for submitted forms.
+Limit query submissions to prevent misuse.
 
-### Making a Progressive Web App
+User Management:
+Distinguish between regular and super users.
+Admin access for site administration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Database Structure:
+My database employs a one-to-many relationship from users to physio forms, reflecting the scenario where a user can possess multiple physio forms. Conversely, each physio form is linked to a single user, establishing a many-to-one relationship. Additionally, a one-to-one relationship exists between the physio form and the treatment entity. This design ensures that each physio form is associated with a singular treatment, offering a streamlined and efficient relationship model.
 
-### Advanced Configuration
+[Screenshot for database goes here]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
