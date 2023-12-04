@@ -95,34 +95,34 @@ My database employs a one-to-many relationship from users to physio forms, refle
 
 ## Challenges
 
--It was fairly straightforward to add the delete method in as I had got the back end working from before so I just needed to implement the fetch in the front end
--However the problem I was facing after was that although the physioform data was deleting I was getting a blocker when there were no forms left for that user as the page was still trying to render the physioform data
+- It was fairly straightforward to add the delete method in as I had got the back end working from before so I just needed to implement the fetch in the front end
+- However the problem I was facing after was that although the physioform data was deleting I was getting a blocker when there were no forms left for that user as the page was still trying to render the physioform data
 [Insert Screenshot of code here]
--After some debugging the reason for this error was that the physioform data was displaying in the console as undefined rather than being an empty array
--I was able to solve this by using the line if (data.length > 0) and by adding this it meant if there was no more physioform data for that user it would no longer set any data into the physioform leaving it as an empty array rather than becoming undefined
+- After some debugging the reason for this error was that the physioform data was displaying in the console as undefined rather than being an empty array
+- I was able to solve this by using the line if (data.length > 0) and by adding this it meant if there was no more physioform data for that user it would no longer set any data into the physioform leaving it as an empty array rather than becoming undefined
 [Insert Screenshot of code here]
 
 ## Wins
 
--At first I was struggling to be able to differentiate the data for those who were not super users but after doing some digging into my database I came upon the is_staff attribute that contained a boolean that stated if the user was an admin or not
--By adding the is_staff to my fields as shown below I was able to access this data through and this allowed me to distinguish if the user was a super user or not
+- At first I was struggling to be able to differentiate the data for those who were not super users but after doing some digging into my database I came upon the is_staff attribute that contained a boolean that stated if the user was an admin or not
+- By adding the is_staff to my fields as shown below I was able to access this data through and this allowed me to distinguish if the user was a super user or not
 [Insert Screenshot of code here]
--I am pleased with my code below to render the data differently depending on if the user was a super user or not
+- I am pleased with my code below to render the data differently depending on if the user was a super user or not
 [Insert Screenshot of code here]
 
 
 ## Key Learnings/Takeaways
 
--With this being the final project of the course I had become much more confident with stand ups and in my ability to communicate what part of the project I was working on and any blockers I had along with the plan I had for that day
--I am much more confident using Django along with postgreSQL
--With this being the second project using react I also have much more confidence using this for my front end
--With several issues deploying previous projects I most definitely found this project the most straightforward to deploy and was pleased to be able deploy with very few problems
+- With this being the final project of the course I had become much more confident with stand ups and in my ability to communicate what part of the project I was working on and any blockers I had along with the plan I had for that day
+- I am much more confident using Django along with postgreSQL
+- With this being the second project using react I also have much more confidence using this for my front end
+- With several issues deploying previous projects I most definitely found this project the most straightforward to deploy and was pleased to be able deploy with very few problems
 
 ## Future Improvements
 
--If I had more time I would create another entity for user profile that would include their age so the user would not have to implement this every time they made a query
--I would also include a time for their last query in this entity as currently if the user deletes their query they can make another one therefore bypassing the one month time limit I set
--I would also spend more time to create a comment section at the bottom of the management page so that users have a way of interacting with each other and can even share their personal experiences
+- If I had more time I would create another entity for user profile that would include their age so the user would not have to implement this every time they made a query
+- I would also include a time for their last query in this entity as currently if the user deletes their query they can make another one therefore bypassing the one month time limit I set
+- I would also spend more time to create a comment section at the bottom of the management page so that users have a way of interacting with each other and can even share their personal experiences
 
 
 
