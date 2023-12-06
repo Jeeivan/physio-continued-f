@@ -93,6 +93,71 @@ My database employs a one-to-many relationship from users to physio forms, refle
 
 [Screenshot for database goes here]
 
+## Build Process
+
+**Day 1**
+
+- Today I was able to setup the django back end along with the django rest framework
+- I was also able to connect this with the front end and was successfully able to fetch data from the back end and display this into the back end as shown below
+[Insert Screenshot]
+
+- I am also pleased I was able to embed youtube videos showing specific exercises onto my exercise page which I am pleased with as this way it is able to keep the users on my site rather them leaving the page to go see the youtube video and they have access to all their exercise videos in one page
+[Insert Screenshot]
+
+- Initially I was having some trouble with setting up the CRUD functionality in my back end and particularly with the routes
+- I was able to fix this by changing the routes and got rid of any extra slashes I used in the end points as this was what was causing errors and after testing these in postman I was successfully able to create, read, update and delete both responses and the physio form data too
+
+**Day 2**
+
+- I created a new page focussed on management advice- this was fairly straightforward as it is just a static page with information
+- I also created separate components for my exercise videos to keep the code more readable as shown below
+[Insert Screenshot]
+
+- To make the page more dynamic I added buttons for each body part and that way whichever body part is clicked on by the user it will only display the videos from that component
+[Insert Screenshot]
+
+**Day 3**
+
+- Now that I had the create user working I then needed a way to be able to get the id of the user to be able to use this id to fetch other pieces of data in my response page
+- I was struggling with this at first as I was having trouble figuring out how to do this but after doing some further research I realised i could use the jwt-decode import that could grab the id as shown below
+- I then encountered the problem where even though I had the code I needed a way to be able to pass this code to other pages of my website
+- At first I attempted to do this using the params but this proved to be quite inefficient and much better approach I worked out was using the localstorage and setting the id in there to be able to access it from any page as also shown below
+- Having this ID allowed me to be able to do more fetches for specific pieces of data within the physioform and treatment as shown
+
+[Insert Screenshots]
+
+**Day 4**
+
+- I was able to get my full CRUD working and added edit and delete functions to the physioform information
+- With the edit method I was having some trouble with loading the pre-existing data
+- I was able to solve this issue by passing the data for that specific physioform data and passing it to the update page
+[Insert Screenshot]
+
+- Another of my blockers I was facing was that on the response page for the super user it is intended to show the physioform data for all users however whenever first loading onto the page after logging in it would only show one piece of data
+- After a lot of debugging I was unable to fix this issue where I originally was using useState to set if the user was a super user 
+- Instead I found an alternative way of using localstorage and setting this information to a variable which resolved my issue, which I was pleased with
+[Insert Screenshot]
+
+**Day 5**
+
+- A  blocker I worked on this day was where once the super user completes a treatment for a form data the form data remains in the response page for the super user
+- After some thought I made the decision to add an attribute to the form data with if the treatment is completed that is set to false by default initially 
+- This way once the treatment method is posted it would update the treatment_completed attribute to true 
+- I then made sure in the response page to only filter through data forms that only have treatment completed as false
+
+[Insert Screenshot]
+
+**Day 6**
+
+- I updated my sign up and sign in pages to make them more user friendly as I was having an issue where if someone’s sign in failed there would be no message meaning the user would not know why the login/sign up failed
+- I also spent a lot of time today updating the styling of my page, including a focus of adding media queries to make the website mobile friendly too
+
+**Day 7**
+
+- For the final half day of the project I was spending the majority of my time testing the deployed version of my website to make sure there were no bugs
+- I also spent some time adjusting the styling to make sure the website was as user friendly as possible
+- I also made a small adjustment in my PhysioForm entity to add an input for the age of the user so this would be clear for the super user giving the user treatment as the age can also affect the treatment advice too
+
 ## Challenges
 
 - It was fairly straightforward to add the delete method in as I had got the back end working from before so I just needed to implement the fetch in the front end
