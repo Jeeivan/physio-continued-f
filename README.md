@@ -115,7 +115,7 @@ My database employs a one-to-many relationship from users to physio forms, refle
 - I was also able to connect this with the front end and was successfully able to fetch data from the back end and display this into the back end
 - I am also pleased I was able to embed youtube videos showing specific exercises onto my exercise page which I am pleased with as this way it is able to keep the users on my site rather them leaving the page to go see the youtube video and they have access to all their exercise videos in one page
   
-![screenshot of exercise page)(exercise.png)
+![screenshot of exercise page](exercise.png)
 
 - Initially I was having some trouble with setting up the CRUD functionality in my back end and particularly with the routes
 - I was able to fix this by changing the routes and got rid of any extra slashes I used in the end points as this was what was causing errors and after testing these in postman I was successfully able to create, read, update and delete both responses and the physio form data too
