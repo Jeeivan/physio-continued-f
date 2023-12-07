@@ -9,8 +9,6 @@ My aim for the final project was to build a full-stack website using a Django ba
 - [Deployment Link](#deployment-link)
 - [Technologies](#technologies-used)
 - [Brief](#brief)
-- [Installation](#installation)
-- [Timeframe & Working Team](#timeframe--working-team)
 - [Technologies Used](#technologies-used)
 - [Brief](#brief)
 - [Planning](#planning)
