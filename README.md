@@ -1,5 +1,7 @@
 # SEI Unit 4 Project ReadMe
 
+![screenshot of website](physio.png)
+
 ## Project Description
 
 My aim for the final project was to build a full-stack website using a Django backend with PostgreSQL and a React frontend that caters to users in need of physiotherapy. As a former senior physiotherapist, I have firsthand experience with the challenges faced by the NHS, including its extensive waiting lists. Therefore, my plan for this website is to provide a platform where users can not only access general information about managing their symptoms but also submit a brief physiotherapy form. This form will allow me to address the specific needs of each patient, enabling them to initiate their treatment while awaiting a face-to-face appointment.
@@ -103,18 +105,17 @@ Admin access for site administration.
 **Database Structure:**
 My database employs a one-to-many relationship from users to physio forms, reflecting the scenario where a user can possess multiple physio forms. Conversely, each physio form is linked to a single user, establishing a many-to-one relationship. Additionally, a one-to-one relationship exists between the physio form and the treatment entity. This design ensures that each physio form is associated with a singular treatment, offering a streamlined and efficient relationship model.
 
-[Screenshot for database goes here]
+![database structure](physio.png)
 
 ## Build Process
 
 **Day 1**
 
 - Today I was able to setup the django back end along with the django rest framework
-- I was also able to connect this with the front end and was successfully able to fetch data from the back end and display this into the back end as shown below
-[Insert Screenshot]
-
+- I was also able to connect this with the front end and was successfully able to fetch data from the back end and display this into the back end
 - I am also pleased I was able to embed youtube videos showing specific exercises onto my exercise page which I am pleased with as this way it is able to keep the users on my site rather them leaving the page to go see the youtube video and they have access to all their exercise videos in one page
-[Insert Screenshot]
+  
+![screenshot of exercise page)[exericse.png)
 
 - Initially I was having some trouble with setting up the CRUD functionality in my back end and particularly with the routes
 - I was able to fix this by changing the routes and got rid of any extra slashes I used in the end points as this was what was causing errors and after testing these in postman I was successfully able to create, read, update and delete both responses and the physio form data too
@@ -122,11 +123,67 @@ My database employs a one-to-many relationship from users to physio forms, refle
 **Day 2**
 
 - I created a new page focussed on management advice- this was fairly straightforward as it is just a static page with information
-- I also created separate components for my exercise videos to keep the code more readable as shown below
-[Insert Screenshot]
-
+- I also created separate components for my exercise videos to keep the code more readable
 - To make the page more dynamic I added buttons for each body part and that way whichever body part is clicked on by the user it will only display the videos from that component
-[Insert Screenshot]
+
+```
+export default function Exercise() {
+        const [showModal, setShowModal] = useState(true);
+        const [selectedBodyPart, setSelectedBodyPart] = useState(null)
+
+        const handleBodyPartClick = (bodyPart) => {
+            setSelectedBodyPart(bodyPart)
+            setShowModal(false)
+        }
+
+        const bodyPartHeadings = {
+            lowBack: 'Low Back Exercises',
+            neck: 'Neck Exercises',
+            knee: 'Knee Exercises',
+            shoulder: 'Shoulder Exercises',
+            hip: 'Hip Exercises',
+            ankle: 'Ankle Exercises',
+          };
+
+  return (
+    <Container>
+        <h1>{bodyPartHeadings[selectedBodyPart] || 'Exercises'}</h1>
+        <div className="exercise-buttons">
+        <Button onClick={() => handleBodyPartClick('lowBack')}>Low Back</Button>
+        <Button onClick={() => handleBodyPartClick('neck')}>Neck</Button>
+        <Button onClick={() => handleBodyPartClick('knee')}>Knee</Button>
+        <Button onClick={() => handleBodyPartClick('shoulder')}>Shoulder</Button>
+        <Button onClick={() => handleBodyPartClick('hip')}>Hip</Button>
+        <Button onClick={() => handleBodyPartClick('ankle')}>Ankle</Button>
+        </div>
+        {selectedBodyPart && (
+        <>
+          {selectedBodyPart === 'lowBack' && <LowBack />}
+          {selectedBodyPart === 'neck' && <Neck />}
+          {selectedBodyPart === 'knee' && <Knee />}
+          {selectedBodyPart === 'shoulder' && <Shoulder />}
+          {selectedBodyPart === 'hip' && <Hip />}
+          {selectedBodyPart === 'ankle' && <Ankle />}
+        </>
+      )}
+
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Welcome to the Exercise Page. DISCLAIMER!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>These exercises serve as examples, and while we cannot guarantee they will alleviate your pain, it's crucial to understand that treatment extends beyond exercises alone. It's worth noting that exercises performed on the floor can also be adapted for bed. It's important to emphasize that there's no such thing as a 'perfect' exercise, and you're not expected to perform every exercise listed here. The key is to discover the exercises that work specifically for you.<br /> Don't feel pressured to adhere to a specific repetition count – focus on what feels comfortable for you. Gradually ease into each exercise and steadily increase repetitions at your own pace. Remember, it's about finding the right exercise tailored to your needs. So, don't worry about the quantity; prioritize comfort and gradual progress.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
+  )
+}
+```
 
 **Day 3**
 
@@ -134,30 +191,127 @@ My database employs a one-to-many relationship from users to physio forms, refle
 - I was struggling with this at first as I was having trouble figuring out how to do this but after doing some further research I realised i could use the jwt-decode import that could grab the id as shown below
 - I then encountered the problem where even though I had the code I needed a way to be able to pass this code to other pages of my website
 - At first I attempted to do this using the params but this proved to be quite inefficient and much better approach I worked out was using the localstorage and setting the id in there to be able to access it from any page as also shown below
-- Having this ID allowed me to be able to do more fetches for specific pieces of data within the physioform and treatment as shown
+- Having this ID allowed me to be able to do more fetches for specific pieces of data within the physioform and treatment
 
-[Insert Screenshots]
+```
+localStorage.setItem("decoded_token", userId);
+```
+
+```
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let apiUrl = `${process.env.REACT_APP_BACKEND_URL}/physioform/`;
+
+        // If the user is not a superuser, fetch only their most recent physioform data
+        if (!isSuperUser) {
+          apiUrl += `user/${userId}`;
+        }
+
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        });
+
+        const data = await response.json();
+```
 
 **Day 4**
 
 - I was able to get my full CRUD working and added edit and delete functions to the physioform information
 - With the edit method I was having some trouble with loading the pre-existing data
 - I was able to solve this issue by passing the data for that specific physioform data and passing it to the update page
-[Insert Screenshot]
+
+```
+export default function PhysioFormUpdate() {
+  const [existingData, setExistingData] = useState({});
+  const physioFormId = localStorage.getItem("physio_form");
+  const isEditMode = !!physioFormId;
+
+  useEffect(() => {
+    async function fetchExistingData() {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/physioform/${physioFormId}/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        });
+        const data = await response.json();
+        setExistingData(data);
+      } catch (error) {
+        console.error('Error fetching existing data:', error);
+      }
+    }
+
+    if (isEditMode) {
+      fetchExistingData();
+    }
+  }, [physioFormId, isEditMode]);
+
+  return (
+    <div>
+      <Form existingData={existingData} isEditMode={isEditMode} />
+    </div>
+  );
+}
+```
 
 - Another of my blockers I was facing was that on the response page for the super user it is intended to show the physioform data for all users however whenever first loading onto the page after logging in it would only show one piece of data
 - After a lot of debugging I was unable to fix this issue where I originally was using useState to set if the user was a super user 
 - Instead I found an alternative way of using localstorage and setting this information to a variable which resolved my issue, which I was pleased with
-[Insert Screenshot]
+
+```
+        if (userData.is_staff === true) {
+          localStorage.setItem("isSuperUser", "true");
+        } else {
+          localStorage.setItem("isSuperUser", "false");
+        }
+```
 
 **Day 5**
 
 - A  blocker I worked on this day was where once the super user completes a treatment for a form data the form data remains in the response page for the super user
-- After some thought I made the decision to add an attribute to the form data with if the treatment is completed that is set to false by default initially 
+- After some thought I made the decision to add an attribute to the form data where treatment_completed is set to false by default initially 
 - This way once the treatment method is posted it would update the treatment_completed attribute to true 
 - I then made sure in the response page to only filter through data forms that only have treatment completed as false
 
-[Insert Screenshot]
+```
+class Physio_Form(models.Model):
+  date = models.DateField(auto_now_add=True)
+  name = models.CharField(max_length=100)
+  age = models.IntegerField()
+  body_part = models.CharField(max_length=100)
+  time = models.CharField(max_length=15)
+  trauma = models.CharField(max_length=100)
+  location = models.CharField(max_length=100)
+  scans = models.CharField(max_length=100)
+  aggs = models.CharField(max_length=100)
+  eases = models.CharField(max_length=100)
+  past_treatment = models.CharField(max_length=100)
+  medication = models.CharField(max_length=100)
+  work = models.CharField(max_length=100)
+  goals = models.CharField(max_length=100)
+  treatment_complete = models.BooleanField(default=False)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+
+```
+            if (!isSuperUser) {
+              // If the user is not a superuser, sort and get the most recent entry
+              const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+              const mostRecentPhysioformData = sortedData[0];
+              setPhysioFormData([mostRecentPhysioformData]);
+            } else {
+              const physioformsWithoutTreatments = data.filter((physioform) => !physioform.treatment_complete);
+              setPhysioFormData(physioformsWithoutTreatments);
+              
+            }
+```
 
 **Day 6**
 
@@ -173,17 +327,117 @@ My database employs a one-to-many relationship from users to physio forms, refle
 ## Challenges
 
 Adding the delete method was relatively straightforward, as I had already set up the back end. I just needed to implement the fetch in the front end. Despite successfully deleting physioform data, a challenge arose when there were no forms left for that user. The page still attempted to render the physioform data, causing a blocker.
-[Insert Screenshot of code here]
 After some debugging, I identified that the error occurred because the physioform data was appearing as undefined in the console instead of being represented as an empty array. To address this issue, I implemented the solution by using the line 'if (data.length > 0)'. By incorporating this condition, it ensured that if there was no more physioform data for that user, the physioform would no longer be set with any data, leaving it as an empty array rather than becoming undefined.
-[Insert Screenshot of code here]
+
+```
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let apiUrl = `${process.env.REACT_APP_BACKEND_URL}/physioform/`;
+
+        // If the user is not a superuser, fetch only their most recent physioform data
+        if (!isSuperUser) {
+          apiUrl += `user/${userId}`;
+        }
+
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          if (data.length > 0) { 
+            if (!isSuperUser) {
+              // If the user is not a superuser, sort and get the most recent entry
+              const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+              const mostRecentPhysioformData = sortedData[0];
+              setPhysioFormData([mostRecentPhysioformData]);
+            } else {
+              const physioformsWithoutTreatments = data.filter((physioform) => !physioform.treatment_complete);
+              setPhysioFormData(physioformsWithoutTreatments);
+              
+            }
+          } else {
+            console.error("Physioform data is not an array:", data);
+          }
+        }
+      } catch (error) {
+        console.log("Error fetching physioform data", error);
+      }
+    }
+```
 
 ## Wins
 
 - At first I was struggling to be able to differentiate the data for those who were not super users but after doing some digging into my database I came upon the is_staff attribute that contained a boolean that stated if the user was an admin or not
-- By adding the is_staff to my fields as shown below I was able to access this data through and this allowed me to distinguish if the user was a super user or not
-[Insert Screenshot of code here]
-- I am pleased with my code below to render the data differently depending on if the user was a super user or not
-[Insert Screenshot of code here]
+- By adding the is_staff to my fields I was able to access this data through and this allowed me to distinguish if the user was a super user or not
+- I am pleased with my code below to render the data differently depending on if the user was a super user or not, although if time allowed I would have gone back through this to make this cleaner
+
+```
+  return (
+    <div className="container">
+      <h1>Physioform Details</h1>
+      {physioFormData.length > 0 ? (
+        physioFormData.map((formData, index) => (
+          <div className="physioform-container" key={index}>
+            <strong>Name:</strong>{formData.name}<br />
+            <strong>Age:</strong>{formData.age}<br />
+            <strong>Date:</strong> {formData.date}<br />
+            <strong>Body Part:</strong> {formData.body_part}<br />
+            <strong>Time:</strong> {formData.time}<br />
+            <strong>Trauma:</strong> {formData.trauma}<br />
+            <strong>Location:</strong> {formData.location}<br />
+            <strong>Scans:</strong> {formData.scans}<br />
+            <strong>Aggravating Factors:</strong> {formData.aggs}<br />
+            <strong>Easing Factors:</strong> {formData.eases}<br />
+            <strong>Past Treatment:</strong> {formData.past_treatment}<br />
+            <strong>Medication:</strong> {formData.medication}<br />
+            <strong>Work:</strong> {formData.work}<br />
+            <strong>Goals:</strong> {formData.goals}<br />
+            {/* <strong>Treatment:</strong> {formData.treatment_complete.toString()}<br /> */}
+            {!isSuperUser && (
+            <>
+              <button className='delete-btn' onClick={handleDeletePhysioForm}>Delete</button>
+              <Link to="/form/update">
+                <button className='link-btn'>Edit</button>
+              </Link>
+              <p>{message}</p>
+            </>
+          )}
+            {isSuperUser && (
+              <Link to={`/treatments/add/${getIdFromUrl(formData.url)}`}>
+                <button className="treatment-btn">Add Treatment</button>
+              </Link>
+            )}
+          </div>
+        ))
+      ) : (
+        <p>You have no physio queries. If you would like to make one then please head to the Physio Form page.</p>
+      )}
+
+      {!isSuperUser && treatmentData.length > 0 ? (
+        <div className="treatment-details">
+          <hr />
+          <h2>Treatment Details</h2>
+          {treatmentData.map((treatment, treatmentIndex) => (
+            <div key={treatmentIndex}>
+              <strong>Date:</strong> {treatment.date}<br />
+              <strong>Response:</strong> {treatment.response}<br />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>{!isSuperUser ? "" : ""}</p>
+      )}
+    </div>
+  );
+}
+```
 
 
 ## Key Learnings/Takeaways
