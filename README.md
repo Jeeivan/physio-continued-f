@@ -7,8 +7,6 @@ My aim for the final project was to build a full-stack website using a Django ba
 ## Table of Contents
 
 - [Deployment Link](#deployment-link)
-- [Technologies](#technologies-used)
-- [Brief](#brief)
 - [Technologies Used](#technologies-used)
 - [Brief](#brief)
 - [Planning](#planning)
