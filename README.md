@@ -4,6 +4,22 @@
 
 My aim for the final project was to build a full-stack website using a Django backend with PostgreSQL and a React frontend that caters to users in need of physiotherapy. As a former senior physiotherapist, I have firsthand experience with the challenges faced by the NHS, including its extensive waiting lists. Therefore, my plan for this website is to provide a platform where users can not only access general information about managing their symptoms but also submit a brief physiotherapy form. This form will allow me to address the specific needs of each patient, enabling them to initiate their treatment while awaiting a face-to-face appointment.
 
+## Table of Contents
+
+- [Deployment Link](#deployment-link)
+- [Technologies](#technologies-used)
+- [Brief](#brief)
+- [Installation](#installation)
+- [Timeframe & Working Team](#timeframe--working-team)
+- [Technologies Used](#technologies-used)
+- [Brief](#brief)
+- [Planning](#planning)
+- [Build Process](#build-process)
+- [Challenges](#challenges)
+- [Wins](#wins)
+- [Key Learnings/Takeaways](#key-learningstakeaways)
+- [Future Improvements](#future-improvements)
+
 ## Deployment Link
 
 (https://physio-frontend-production.up.railway.app/)
@@ -16,12 +32,12 @@ CSS, HTML, Vanilla JavaScript ES6, Django, Django Rest Framework, PostgreSQL,  R
 
 ## Brief
 
-Project Aim:
+**Project Aim:**
 Build a full-stack Django/React web app.
 Utilise Django as the backend and React as the frontend.
 Demonstrate proficiency in designing databases, problem-solving, and seamless data transfer between technologies.
 
-Technical Requirements:
+**Technical Requirements:**
 Build a full-stack Django/React application.
 Connect to and perform data operations on a PostgreSQL database.
 Implement full-CRUD data operations across models, excluding the User model.
@@ -31,64 +47,64 @@ Deploy the app online using Railway.
 
 ## Planning
 
-Page Descriptions:
+**Page Descriptions:**
 
-Home Page:
+**Home Page:**
 Personalised narratives about the creator's experiences.
 Addressing the issues of NHS waiting times, emphasising the need for concise information.
 Encouragement for users to consult a GP for in-depth concerns.
 Disclaimer section to set expectations.
 
-FAQ Page:
+**FAQ Page:**
 Common questions with collapsible answers for a clean user experience.
 Questions covering exercise in pain, diagnosis requirements, posture, etc.
 
-Exercise Page:
+**Exercise Page:**
 General information on exercises for back pain.
 Video links embedded for visual guidance.
 
-Management Page:
+**Management Page:**
 Information on how to manage various physio conditions.
 
-Physio Form Page:
+**Physio Form Page:**
 Subjective Form with CRUD functionality.
 Questions include body part selection, history, trauma, pain details, scans, aggravating factors, previous treatments, medications, work impact, goals, etc.
 
-My Question/Responses Page:
+**My Question/Responses Page:**
 Display submitted physio forms in a readable layout.
 Indicate "Awaiting response" or display responses.
 Super users can view all questions; normal users see only their questions.
 
-Technical Features:
+**Technical Features:**
 User Authentication:
 Implement a login/sign-up page.
 Set limits on query submissions per user.
 Admin login for site management.
 
-Access Control:
+**Access Control:**
 Restrict page access to logged-in users.
 Super users have access to all pages and questions.
 
-Additional Considerations:
+**Additional Considerations:**
 
-Home Page Content:
+**Home Page Content:**
 Discuss personal experiences.
 Address NHS waiting time issues.
 Emphasise the site's purpose of providing concise information.
 
-User Interaction:
+**User Interaction:**
 Utilise collapsible sections for FAQs.
 Embed video links for exercises.
 
-Form Functionality:
+**Form Functionality:**
 Enable CRUD functionality for submitted forms.
 Limit query submissions to prevent misuse.
 
-User Management:
+**User Management:**
 Distinguish between regular and super users.
 Admin access for site administration.
 
-Database Structure:
+**Database Structure:**
 My database employs a one-to-many relationship from users to physio forms, reflecting the scenario where a user can possess multiple physio forms. Conversely, each physio form is linked to a single user, establishing a many-to-one relationship. Additionally, a one-to-one relationship exists between the physio form and the treatment entity. This design ensures that each physio form is associated with a singular treatment, offering a streamlined and efficient relationship model.
 
 [Screenshot for database goes here]
@@ -155,16 +171,14 @@ My database employs a one-to-many relationship from users to physio forms, refle
 **Day 7**
 
 - For the final half day of the project I was spending the majority of my time testing the deployed version of my website to make sure there were no bugs
-- I also spent some time adjusting the styling to make sure the website was as user friendly as possible
-- I also made a small adjustment in my PhysioForm entity to add an input for the age of the user so this would be clear for the super user giving the user treatment as the age can also affect the treatment advice too
+- I spent some time adjusting the styling to make sure the website was as user friendly as possible
+- I made a small adjustment in my PhysioForm entity to add an input for the age of the user so this would be clear for the super user giving the user treatment as the age can also affect the treatment advice too
 
 ## Challenges
 
-- It was fairly straightforward to add the delete method in as I had got the back end working from before so I just needed to implement the fetch in the front end
-- However the problem I was facing after was that although the physioform data was deleting I was getting a blocker when there were no forms left for that user as the page was still trying to render the physioform data
+Adding the delete method was relatively straightforward, as I had already set up the back end. I just needed to implement the fetch in the front end. Despite successfully deleting physioform data, a challenge arose when there were no forms left for that user. The page still attempted to render the physioform data, causing a blocker.
 [Insert Screenshot of code here]
-- After some debugging the reason for this error was that the physioform data was displaying in the console as undefined rather than being an empty array
-- I was able to solve this by using the line if (data.length > 0) and by adding this it meant if there was no more physioform data for that user it would no longer set any data into the physioform leaving it as an empty array rather than becoming undefined
+After some debugging, I identified that the error occurred because the physioform data was appearing as undefined in the console instead of being represented as an empty array. To address this issue, I implemented the solution by using the line 'if (data.length > 0)'. By incorporating this condition, it ensured that if there was no more physioform data for that user, the physioform would no longer be set with any data, leaving it as an empty array rather than becoming undefined.
 [Insert Screenshot of code here]
 
 ## Wins
